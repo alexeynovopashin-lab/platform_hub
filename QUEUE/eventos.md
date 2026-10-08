@@ -1,6 +1,6 @@
 # Вопросы к Event OS (ядру)
 
-Отвечает чат Event OS. Исходный текст Q-014…Q-023: `sources/2026-10-08_bronios_questions.md`, раздел «Ядро», пункты 1–10 (Q-014 = Ядро 1, … Q-023 = Ядро 10). Документы ядра по теме: `event_os:BRIDGE_BRONIOS.md`, `event_os:BRIDGE_LIGHT_PLAN.md`; черновик архитектуры платформы `tomson_site:docs/PLATFORM_ARCHITECTURE.md`.
+Отвечает чат Event OS. Исходный текст Q-014…Q-023: `sources/2026-10-08_bronios_questions.md`, раздел «Ядро», пункты 1–10 (Q-014 = Ядро 1, … Q-023 = Ядро 10). Документы ядра по теме: `event_os:BRIDGE_BRONIOS.md`, `event_os:BRIDGE_LIGHT_PLAN.md`; черновик архитектуры платформы `platform_hub:docs/PLATFORM_ARCHITECTURE.md`.
 
 ### Q-014 · от: bronios · кому: eventos · 2026-10-08 · статус: открыт
 Где живёт канал Light Plan до этапа 6; адреса `/v1/`; приём старых запросов при переезде.
