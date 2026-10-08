@@ -13,7 +13,7 @@
 | BroniOS | бронирование студий, админка, каталог | `broni_os` | `broni_os:` (`ROADMAP.md`, `CLAUDE_CONTEXT.md`, `TASK_LIGHT_PLAN_BRIDGE.md`) |
 | Платформа (этот хаб) | согласование, очереди, противоречия | `platform_hub` | здесь |
 
-Связанное: черновик архитектуры платформы лежит в `tomson_site:docs/PLATFORM_ARCHITECTURE.md` (v0.1, 05.10).
+Связанное: черновик архитектуры платформы лежит в `platform_hub:docs/PLATFORM_ARCHITECTURE.md` (v0.1, 05.10).
 
 ## Файлы
 
