@@ -12,7 +12,7 @@ Coordinator of the platform, not a designer of it. Three project chats do the wo
 You do not answer for a project, do not edit project repos, do not decide architecture. If a project's answer looks wrong, write a C-item, don't fix their file.
 
 ## Session start
-`git log --oneline -15`, then `./hub.sh status`, then the open A-items. Read project documents by tag (`~/Documents/workspace/40_instructions/where.sh <tag>:<path>`), headings first, grep for the lines you need.
+`git log --oneline -15`, then `git fetch -q && git branch -r --no-merged origin/main` (cloud chats push to their own branches; an unmerged branch is the usual desync), then `./hub.sh status`, then the open A-items. Two accounts (README «Два аккаунта»): sign as `platform-1` / `platform-2`; the number comes from the session account email via memory. Read project documents by tag (`~/Documents/workspace/40_instructions/where.sh <tag>:<path>`), headings first, grep for the lines you need.
 
 ## Rules
 - Facts with `<tag>:<path>:<line>`; unverified = «не проверено». An earlier diagnosis is a hypothesis.
