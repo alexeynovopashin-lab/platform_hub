@@ -11,6 +11,7 @@
 | Light Plan (оркестратор Light Plan) | планировщик фотографа, нативное iOS-приложение | `light_plan` | `light_plan:Light_Plan/` (DECISIONS, ROADMAP, SWIFT_MIGRATION_PLAN, docs/), `light_plan:native/` |
 | Event OS (ядро) | ядро платформы: граф, идентификаторы, роли, согласие | `event_os` | `event_os:` (00–99, `BRIDGE_LIGHT_PLAN.md`, `BRIDGE_BRONIOS.md`, `TASK_MINIMAL_CORE.md`) |
 | BroniOS | бронирование студий, админка, каталог | `broni_os` | `broni_os:` (`ROADMAP.md`, `CLAUDE_CONTEXT.md`, `TASK_LIGHT_PLAN_BRIDGE.md`) |
+| Сайт студии | сайт Томсон.РФ, админка цен и фото | `tomson_site` | `tomson_site:` (`CLAUDE.md`, `docs/`) |
 | Платформа (этот хаб) | согласование, очереди, противоречия | `platform_hub` | здесь |
 
 Связанное: черновик архитектуры платформы лежит в `platform_hub:docs/PLATFORM_ARCHITECTURE.md` (v0.1, 05.10).
@@ -28,7 +29,7 @@
 
 ## Правила для чатов проектов
 
-1. **В начале сессии:** `~/Documents/workspace/10_projects/platform_hub/hub.sh <проект>` (`lightplan`, `eventos`, `bronios`). Когда Алексей пишет «проверь хаб» — то же самое. Чат без доступа к Mac (облачный проект claude.ai) читает хаб на GitHub: https://github.com/alexeynovopashin-lab/platform_hub (файлы напрямую: `https://raw.githubusercontent.com/alexeynovopashin-lab/platform_hub/main/<файл>`); пишет в хаб через Алексея или чат на Mac.
+1. **В начале сессии:** `~/Documents/workspace/10_projects/platform_hub/hub.sh <проект>` (`lightplan`, `eventos`, `bronios`, `site`). Когда Алексей пишет «проверь хаб» — то же самое. Чат без доступа к Mac (облачный проект claude.ai) читает хаб на GitHub: https://github.com/alexeynovopashin-lab/platform_hub (файлы напрямую: `https://raw.githubusercontent.com/alexeynovopashin-lab/platform_hub/main/<файл>`); пишет в хаб через Алексея или чат на Mac.
 2. **Вопрос другому проекту:** `hub.sh new <от> <кому> "заголовок"` создаёт запись с номером в `QUEUE/<кому>.md`; ниже дописать текст вопроса и строку «Что меняет».
 3. **Ответ:** только в своей очереди, под вопросом: «Ответ (<проект>, дата)», затем сменить статус в заголовке на `отвечен`. Закрывает спросивший (`закрыт`), когда принял ответ.
 4. **Факты** — со ссылкой `<метка>:<путь>:<строка>`. Не проверено — так и написать.
