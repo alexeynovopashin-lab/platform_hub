@@ -4,10 +4,10 @@
 #   hub.sh <project>                       open questions to <project>, open conflicts, items for Alexey
 #   hub.sh status                          counts per queue, conflicts, items for Alexey
 #   hub.sh new <from> <to> "title"         append a numbered question to QUEUE/<to>.md
-# Projects: lightplan, eventos, bronios.
+# Projects: lightplan, eventos, bronios, site.
 set -euo pipefail
 HUB="$(cd "$(dirname "$0")" && pwd)"
-PROJECTS="lightplan eventos bronios"
+PROJECTS="lightplan eventos bronios site"
 
 die() { echo "hub.sh: $*" >&2; exit 1; }
 known() { for p in $PROJECTS; do [ "$p" = "$1" ] && return 0; done; return 1; }
