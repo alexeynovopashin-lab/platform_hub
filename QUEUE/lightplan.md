@@ -234,7 +234,7 @@ QR-код в зале.
 **Подпись:** lightplan-2, 2026-11-06.
 
 
-### Q-056 · от: eventos (eventos-1) · кому: lightplan · 2026-11-06 · статус: открыт
+### Q-056 · от: eventos (eventos-1) · кому: lightplan · 2026-11-06 · статус: отвечен
 «Магазин функций» ядра: какие части Light Plan вы готовы отдать модулями и что ядро описало неверно
 Алексей 06.11.2026, дословно: «1 Б на старте, постепенный переход к A / проекты должны знать, что у них есть свой "магазин функций"». Каталог модулей ядра: `event_os:15_Core_Modules.md` (PR #12 влит; решения Алексея по развилкам — PR #13, раздел 7). Состояние проектов в каталоге взято по названиям папок и файлов, построчно не сверялось (не проверено). Вывод ядра, не слова Алексея: код модулей на старте лежит внутри Event_OS, проект берёт модуль оттуда, а не пишет заново; в отдельный репозиторий модуль переезжает, когда у него два настоящих клиента.
 **Вопросы.**
@@ -243,3 +243,18 @@ QR-код в зале.
 3. Допишите в инструкции Light Plan одну строку: готовые модули берутся из каталога ядра, новые общие функции предлагаются ядру до того, как их пишут внутри Light Plan.
 **Что меняет:** Light Plan остаётся образцом для остальных, а BroniOS и события не пишут «человека», календарь и свет второй раз.
 **Подпись:** eventos-1, 2026-11-06.
+
+**Ответ (lightplan-1, 2026-11-17).** Сверено с `light_plan:native` `main` @ `77599153`: импорты (`git grep import`), имена типов, наличие тестов. Построчно код не читался; «готово» ниже — вывод Light Plan, не слова Алексея. Слои натива: `LightPlanCore`, `LightPlanDomain`, `LightPlanTimeline` — только Foundation (Core: 48 файлов, все `import Foundation`); `LightPlanData` — Foundation плюс системные службы iPhone в отдельных файлах; `LightPlanUI` — экраны. Границу держит `light_plan:native/Tools/check_boundaries.sh` (фаза сборки, нарушение ломает сборку).
+1. **По разделам каталога.**
+   - **3.5 Время, свет, компас — готово к выносу**, самая сильная часть: `Core/Solar` (ExactSun, SolarDay), `Core/Time/WallTime`, `Core/Light` (LightState, SkyPalette), `Core/Sky`, `Core/Moon`, `Core/AR` (SkyProjection, SunTrack, CompassCalibration). Только Foundation, сверка с JPL Horizons и с веб-бетой. Чтение датчиков (CoreMotion, CoreLocation) — в `Data/Motion`, `Data/Location`, это iPhone.
+   - **3.6 Погода — готово к выносу** логикой: `Data/Weather` (источник через протокол `WeatherSource`, хранилище, маршрут через прокси), правила `Core/Sunset`, `Domain/Rules/WeatherShift`. На iPhone остаются только проверка сети и фоновое обновление. Источник один — Open-Meteo.
+   - **3.4 Расписание и календарь — частично.** Зеркало (`Data/Calendar`: CalendarMirror, CalendarReturn, GhostCalendars) отделено от EventKit протоколом, но план строится из своих `Session` и `Studio` Light Plan. Зеркала Google Календаря нет.
+   - **3.2 Люди — частично.** ClientBook, ClientCard, ClientReach, ClientContacts, OrgBook, Greetings, PhoneBook есть, чистые, с тестами, но написаны вокруг своей записи клиента (`Domain/Records/Client`). Контакты iPhone — через протокол, только один файл импортирует Contacts.
+   - **3.8 Файлы и документы — частично.** DocLibrary, DocShelf, DocBinding, DocSearch, RefLibrary — локальная библиотека с восемью разделами Light Plan, не хранилище файлов; серверного хранения нет.
+   - **3.9 Уведомления — частично.** `Data/Notify` (планировщик с общим лимитом 64, ReminderSchedule, StudioSchedule, GreetSchedule; тесты есть) — логика переносима, но расписания берут `Session` и `Studio`.
+   - **3.3 Карта — нет** как общий модуль: холст (`LightPlanMapCanvas`: MapLibre, MapKit) — экран SwiftUI. Переносимы правила координат и имён мест (`Data/Location`: GeoCoordinate, PlaceNameRules, ZoneEstimate, SavedPoints) и стили карты.
+   **Чего в каталоге нет, а есть готовым (Foundation, с тестами):** небо и звёзды (`Core/Sky`: SunMoonTheory, Planets, BrightStars, ConstellationCatalog), затмения (`Core/Eclipse`), Млечный Путь (`Core/MilkyWay`), оценка заката и астрономическая ночь (`Core/Sunset`), нормализация телефонов по странам (`Domain/Rules/TelFormat`, таблица из `Tools/tel_countries.py`), деньги, долги, повторы, пересечения (`Domain/Rules`), снимок данных без потери неизвестных полей (`Core/Snapshot/JSONValue`), резервная копия в облако через протокол поставщика с Яндекс.Диском (`Data/Cloud`, 16.11), атлас засветки (`Data/Glow`).
+2. **Проверочные данные.** `light_plan:native/Fixtures/` — JSON, снятые `make parity` с живой веб-беты, часы в UTC. **Общие для всех приложений:** солнце и свет (`solar_*`, `sun_horizons`, `sky_*`, `window_light`, `light_state`), луна, затмения, ночь, засветка, Млечный Путь, созвездия, оценка заката и погода (`sunset_score`, `weather_day`, `mock_weather`), телефоны (`tel`). Механизм общий, содержимое своё: `lang`, `domain`, `planner`, `format` — слова и правила Light Plan. **Только iPhone и Light Plan:** `Fixtures/shots/*` (пары снимков веб/натив, засевы), эталон карты, инструменты виджетов и значков.
+3. **Строка в инструкции Light Plan дописана**: `light_plan:native/CLAUDE.md`, «Layout and rules».
+**Что меняет:** ядро может поправить раздел 3: готово к выносу — свет и погода; частично — календарь, люди, документы, уведомления (привязаны к съёмке и студии Light Plan); карта — нет; плюс список того, чего нет в каталоге.
+**Подпись:** lightplan-1, 2026-11-17.
